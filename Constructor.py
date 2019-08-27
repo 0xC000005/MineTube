@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: gbk -*-
 # @Time : 2019/8/27 12:12
 # @Author : Max
 # @FileName: Constructor.py
@@ -6,6 +6,7 @@
 from optparse import OptionParser
 import os
 import codecs
+import sys
 
 print r"""
  ________     ___    ___ ________  ________  ________  ________  ________  ________      
@@ -19,7 +20,8 @@ print r"""
 """
 
 
-# [é€šç”¨] - éæ­·æŒ‡å®šæ–‡ä»¶å¤¾ä¸‹çš„æ‰€æœ‰æ–‡ä»¶å†…å®¹
+# ---------------------------Í¨ÓÃÄ£‰K------------------------------
+# [Í¨ÓÃ] - ±éšvÖ¸¶¨ÎÄ¼şŠAÏÂµÄËùÓĞÎÄ¼şÄÚÈİ
 def get_file_names(user_dir):
     file_list = list()
 
@@ -29,52 +31,81 @@ def get_file_names(user_dir):
     return file_list
 
 
-# [ä¸»ç¨‹åº]
-def main(name, type, path):
-    file_list = get_file_names(path)
+# [Í¨ÓÃ] - „“½¨Ö¸¶¨Ãû·QµÄÎÄ¼şŠA/Â·½
+def mk_dir(dir_path):
+    is_exist = os.path.exists(dir_path)
+    if not is_exist:
+        os.makedirs(dir_path)
+        print("NOTICE: folder " + dir_path + " was created.")
+        return True
+    else:
+        return False
 
-    # å®šä½æ–‡ä»¶
+
+# [Í¨ÓÃ] - ï@Ê¾”µ“ş£¬Ìí¼Ó¹ÜµÀÏÂÖ§³Ö
+def write_msg(text):
+    sys.stderr.write(text + '\n')
+
+
+# ---------------------------Ö÷³ÌĞò---------------------------------
+def main(name, type, input, output):
+    file_list = get_file_names(input)
+    dealing = None
+    # ¶¨Î»ÎÄ¼ş
     if name is None:
         dealing = file_list[-1]
     else:
         if name in file_list:
             dealing = name
         else:
-            print "WARNING: æ²’æœ‰åœ¨æ–‡ä»¶å¤¾" + str(path) + "æ‰¾åˆ°ç›¸é—œçš„æ–‡ä»¶" + str(name)
+            write_msg("ERROR: ›]ÓĞÕÒµ½ÏàêPµÄÎÄ¼ş" + input + "\\" + str(name))
             exit()
 
-    # æ–‡ä»¶è™•ç†
-    with codecs.open(path, 'r') as subtitles:
+    # ÎÄ¼şÌÀí
+    with codecs.open(input + "\\" + dealing, 'r') as subtitles:
         lines = subtitles.readlines()
+        for line in lines:
+            # Èç¹û®”Ç°ÕZ¾äµÄéL¶È>=2 ß@ÕhÃ÷²»ÊÇ¿ÕĞĞ
+            if len(line) >= 2:
+                ending = line[-2]
+                if ending != ',' and '.' and ':' and '?':
+                    pass
 
-        with codecs.open(path, 'a+') as output:
-            pass
+            # ÒÆ³ı¿ÕĞĞ
+            else:
+                del line
+            # ÕZ¾äÌÀí
+
+    # İ”³öÎÄÕÂ
+    mk_dir(output)
+    with codecs.open(output + "\\" + dealing, 'a+') as article:
+        pass
 
 
-# ---------------------------å‚æ•°å¤„ç†------------------------------
+# ---------------------------²ÎÊı´¦Àí------------------------------
 parser = OptionParser(usage="usage: %prog [options] filename",
                       version="%prog beta")
 parser.add_option("-n", "--name",
                   action="store",  # optional because action defaults to "store"
                   dest="name",
                   default=None,
-                  help=u"æŒ‡å®šè™•ç†çš„å­—å¹•æ–‡ä»¶, é»˜èªç‚ºsubtitlesæ–‡ä»¶å¤¾è£çš„ç¬¬ä¸€å€‹æ–‡ä»¶", )
+                  help=u"Ö¸¶¨ÌÀíµÄ×ÖÄ»ÎÄ¼ş, Ä¬ÕJésubtitlesÎÄ¼şŠAÑYµÄµÚÒ»‚€ÎÄ¼ş", )
 parser.add_option("-t", "--type",
                   action="store",  # optional because action defaults to "store"
                   dest="type",
                   default="txt",
-                  help=u"æŒ‡å®šConstructorè™•ç†çš„å­—å¹•æ–‡ä»¶çš„é¡å‹(ass/str/txt), é»˜èªç‚ºtxt", )
-parser.add_option("-p", "--path",
+                  help=u"Ö¸¶¨ConstructorÌÀíµÄ×ÖÄ»ÎÄ¼şµÄîĞÍ(ass/str/txt), Ä¬ÕJétxt", )
+parser.add_option("-i", "--input",
                   action="store",  # optional because action defaults to "store"
-                  dest="path",
+                  dest="input",
                   default="subtitles",
-                  help=u"æŒ‡å®šå­—å¹•æ–‡ä»¶å­˜æ”¾çš„è·¯å¾‘, é»˜èªç‚ºsubtitles/ä¸‹", )
+                  help=u"Ö¸¶¨İ”ÈëµÄ×ÖÄ»ÎÄ¼ş´æ·ÅµÄÂ·½, Ä¬ÕJésubtitles/ÏÂ", )
 parser.add_option("-o", "--output",
                   action="store",  # optional because action defaults to "store"
                   dest="output",
-                  default="artic",
-                  help=u"æŒ‡å®šæ•´ç†éçš„æ–‡ç« å­˜æ”¾çš„è·¯å¾‘, é»˜èªç‚ºsubtitles/ä¸‹", )
+                  default="article",
+                  help=u"Ö¸¶¨İ”³öµÄÕûÀíß^µÄÎÄÕÂ´æ·ÅµÄÂ·½, Ä¬ÕJésubtitles/ÏÂ", )
 (options, args) = parser.parse_args()
 
 if __name__ == '__main__':
-    main(name=options.name, type=options.type, path=options.path)
+    main(name=options.name, type=options.type, input=options.input, output=options.output)

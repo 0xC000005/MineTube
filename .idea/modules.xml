@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/MineTuBe.iml" filepath="$PROJECT_DIR$/.idea/MineTuBe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../csgear/.idea/csgear.iml" filepath="$PROJECT_DIR$/../csgear/.idea/csgear.iml" />
     </modules>
   </component>
 </project>

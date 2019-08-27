@@ -1,677 +1,677 @@
 
->> [音樂播放]
+>> [MUSIC PLAYING]
 
 
 
->> 腦SCASSELLATI：歡迎
-到CS50 AI系列。
+>> BRAIN SCASSELLATI: Welcome
+to the CS50 AI series.
 
-我的名字是Scass，今天我們要去
-說說推薦系統。
+My name is Scass, and today we're going
+to talk about recommender systems.
 
-現在，推薦系統聲音
-像那種一個奇怪的名字。
+Now recommender systems sounds
+like kind of an odd name.
 
-這聽起來像也許它應該
-是推薦系統，
+It sounds like maybe it should
+be recommendation systems,
 
-樣的，我同意你的看法。
+and I kind of agree with you.
 
-但是，這些都是幫助系統
-選擇了類似的事情，只要
+But these are the systems that help
+select out similar things whenever
 
-您選擇網上的東西。
+you select something online.
 
-Netflix公司，例如會建議其他
-電影，你可能想要觀看。
+Netflix, for example will suggest other
+movies that you might want to watch.
 
-或者潘多拉會建議不同
-歌曲，你可能要聽。
+Or Pandora will suggest different
+songs that you might want to listen to.
 
-亞馬遜將提出什麼樣的
-其他的產品則可能需要購買。
+Amazon will suggest what kinds of
+other products you might want to buy.
 
-Facebook的甚至會建議
-一些其他的朋友
+Facebook will even suggest
+some of the other friends
 
-你可能需要添加。
+that you might want to add.
 
-每個系統進行操作使用
-相同的基本算法種類的，
+Each of these systems operate using
+the same basic kind of algorithm,
 
-而這正是我們
-要談論今天。
+and that's what we're
+going to talk about today.
 
->> 現在，這些算法
-令人驚訝的大企業。
+>> Now these algorithms are
+surprisingly big business.
 
-Netflix公司幾年前在
-2009年提供了$ 1百萬
+Netflix a few years ago in
+2009 offered a $1 million
 
-如果你能提高自己的獎金
-推薦系​​統，只需10％。
+prize if you could improve their
+recommendation system by just 10%.
 
-有10％，不過，表示
-大量的業務。
+That 10%, though, represents a
+substantial amount of business.
 
-估計是難以
-來的，但很多人
+Estimates are hard to
+come by, but many people
 
-相信這些建議
-一個在線採購系統
+believe that these recommendation
+systems for an online purchasing
 
-系統像亞馬遜導致地方
-在10％和25％的增加收入。
+system like Amazon lead to somewhere
+between 10% and 25% increased revenue.
 
-所以，你可以想像
-種量，你是
+So you can imagine the
+kind of volume that you're
 
-說起當我們思考
-即使這些小的算法。
+talking about when we think about
+even these little algorithms.
 
->> 因此，讓我們得到一些例子。
+>> So let's get some examples.
 
-它是如何，這些
-系統真的有用嗎？
+How is it that these
+systems really work?
 
-有兩種基本
-種的算法的
+There are two basic
+kinds of algorithms that
 
-在作怪，當我們談論
-生成建議。
+are at play when we talk about
+generating recommendations.
 
-第一個的人被稱為
-基於內容的過濾。
+The first ones are called
+content based filtering.
 
-而基於內容的過濾依賴
-於項之間的相似
+And content based filtering relies
+upon similarities between the items
 
-自己，那就是兩部電影之間
-兩首歌曲或兩個購買的物品。
+themselves, that is between two movies
+or two songs or two purchased items.
 
-我們將使用電影
-作為一個例子，但本
+We're going to use movies
+as an example, but this
 
-可以適用，真的，任何類型的
-的對象，我們要尋找的。
+could apply, really, to any type
+of object that we're looking for.
 
->> 所以，如果我想一些
-從去年的電影，
+>> So if I think about some
+movies from the last year,
 
-只見裡面出與
-我的孩子們，他們喜歡它。
+I saw Inside Out with
+my kids, they loved it.
 
-但我們也有一個選擇。
+But we also had a choice.
 
-我們可能已經看到嘍羅，
-我們可以看到ULTRON的年齡，
+We could have gone to see Minions,
+we could seen Age of Ultron,
 
-或者，我們可以看到
-螞蟻人在影院上映。
+or we could have seen
+Ant Man in the theaters.
 
->> 對於任何這些
-電影中，我們可以想像
+>> For any of these
+movies, we could imagine
 
-產生的特徵的列表或
-有關這些不同的電影品質。
+generating a list of features or
+qualities about those different movies.
 
-因此，例如，我可以考慮
-其中，這些電影是動畫。
+So for example, I could consider
+which of those movies are animated.
 
-那麼，無論是由內而外
-和嘍羅是動畫。
+Well, both Inside Out
+and Minions are animated.
 
-ULTRON的年齡都沒有，也沒有
-螞蟻人都是動畫電影。
+Neither Age of Ultron nor
+Ant Man are animated movies.
 
-我能想像建設
-起來的結構中，一個表，該表
+And I could imagine building
+up a structure, a table that
 
-列出這些屬性。
+lists each of these properties.
 
-他們是否動畫或不？
+Are they animated or not?
 
-然後，我可以添加更多
-功能，以該表
+I could then add more
+features to this table
 
-通過添加更多的行成這種結構。
+by adding more rows into this structure.
 
-我可以問是否
-不，他們是奇蹟的電影。
+I could ask whether or
+not they're Marvel movies.
 
-那麼，由內而外和嘍羅
-沒有奇蹟的電影，
+Well, Inside Out and Minions
+are not Marvel movies,
 
-ULTRON和Ant人的年齡肯定是。
+Age of Ultron and Ant Man certainly are.
 
->> 而且我可以問任何種類的
-不同質量的
+>> And I could ask any kinds
+of different qualities
 
-我想，任何種功能
-這可能是對我很重要。
+that I wanted, any kinds of features
+that might be important to me.
 
-他們有一個超級大壞蛋？
+Do they have a super villain?
 
-那麼，有沒有超級大壞蛋裡面
-退房手續，但也有那些在嘍羅
+Well, there's no super villain in Inside
+Out, but there are ones in Minions
 
-和在，很明顯，
-2超級英雄電影。
+and in, obviously, the
+two superhero movies.
 
->> 我還可以問之類的東西，那麼，
-確實，他們通過Bechdel測試？
+>> I could also ask things like, well,
+do they pass the Bechdel test?
 
-是否有兩個命名
-女性角色誰
+Are there two named
+female characters who
 
-花一些顯著量
-有一個談話時間
+spend some significant amount of
+time having a conversation that
 
-不涉及人的中投？
+doesn't involve men in the cast?
 
-那麼，在這種情況下，由內向外傳遞
-測試中，嘍羅失敗，ULTRON的年齡
+Well, in this case, Inside Out passes
+the test, Minions fails, Age of Ultron
 
-通過測試，和螞蟻人失敗。
+passes the test, and Ant Man fails.
 
-這些功能中的任何一個
-我能想到的
+Any one of these features
+I could think about
 
-作為對某些人來說很重要。
+as being important for some people.
 
->> 我還可以問之類的東西都
-在這些影片有沒有人說
+>> I could also ask things like are
+there any people in these movies that
 
-來自校友比方說，公園和
-娛樂，我最喜歡的節目之一。
+are alumni from let's say, Parks and
+Recreation, one of my favorite shows.
 
-好了，裡面走出了艾米
-波勒，這是一個校友。
+Well, Inside Out has Amy
+Poehler, that's an Alumni.
 
-才是最重要。
+That counts.
 
-喬恩哈姆是嘍羅。
+Jon Hamm was in Minions.
 
-保羅陸克文是螞蟻人，但沒有人
-在ULTRON的年齡在公園和所需物品
+Paul Rudd was in Ant Man, but no one
+in Age of Ultron was in Parks and Req
 
-為好。
+as well.
 
-所以，我可以建立起來的這個名單
-功能，並且真正做到了
+So I can build up this list of
+features, and they could really
 
-約看電影什麼。
+be anything about the movies.
 
-它們可能是什麼
-縱橫比他們被射中，
+They could be about what
+aspect ratio they were shot in,
 
-它可能是多少個座位，他們
-在他們的首個週末售出。
+it could be how many seats they
+sold on their opening weekend.
 
-我想任何功能
-生成我可以把這個表。
+Any feature that I want to
+generate I can put into this table.
 
->> 現在，在這種情況下，我已經建立
-所有類金銀價值，
+>> Now, in this case, I've built
+all sort of Bullion values,
 
-是或否，通過或失敗，
-但它們可以是任何東西。
+yes or no, pass or fail,
+but they could be anything.
 
-他們可以是任意值。
+They could be arbitrary values.
 
-對於基於內容過濾，
-我們要做些什麼
+For content based filtering,
+what we're going to do
 
-是我們要考慮的
-此表中的兩列
+is we're going to consider
+two columns in this table
 
-，看看他們是如何的相似。
+and see how similar they are.
 
-因此，舉例來說，如果我
-去看了由內而外，
+So for example, if I
+went to see Inside Out,
 
-我可能會問，有什麼其他電影
-我可能願意去看看。
+I might ask, what are the other movies
+that I might be willing to go see.
 
-也就是說，什麼願意
-花我的錢去看看。
+That is, what willing to
+spend my money to go see.
 
-我可以通過只考慮比較這
-兩列，一列從內而外
+And I can compare this by just taking
+the two columns, one from Inside Out
 
-和一個來自任何的
-其他電影，只是看到
+and one from any of the
+other movies, and just seeing
 
-有多少他們的特點相匹配。
+how many of their features match.
 
-所以，如果我比較內而外
-與嘍羅，嗯，有
+So if I compare Inside Out
+with Minions, well, there's
 
-三件事這裡比賽。
+three things here that match.
 
-他們都是動態的，他們都沒有
-是奇蹟的電影，兩者的
+They're both animated, neither of them
+are Marvel movies, and both of them
 
-有公園和所需物品的校友。
+have Parks and Req alumni.
 
-所以，我可以計數如何
-很多場比賽有，
+So I could count up how
+many matches there were,
 
-並且在這種情況下，存在會是3。
+and in this case there'd be three.
 
->> 如果我再比較而外
-與假設ULTRON的年齡，
+>> If I then compare Inside Out
+with let's say Age of Ultron,
 
-我可以看看在列表中向下
-並說，嗯，有
+I can look down the list
+and say, well, there's
 
-匹配有只有一件事。
+only one thing that matches there.
 
-他們都通過了德爾測試，所以
-這將是一分。
+They both pass the Bechtel test, so
+that's going to be a score of one.
 
-而由內而外的
-和螞蟻人，我再次
+And between Inside Out
+and Ant Man, again I
 
-可能是由於線路比較線多少
-事情他們兩個人之間的匹配。
+can compare line by line how many
+things match between the two of them.
 
-那麼，一個人的動畫，一個人的不是。
+Well, one's animated, one's not.
 
-一個是一個奇蹟的電影，人們不是。
+One's a Marvel movie, one's not.
 
-一個人的得到了一個超級大壞蛋，
-另一個沒有。
+One's got a super villain,
+the other doesn't.
 
-一通柏克德
-測試，一次失敗了，
+One passes the Bechtel
+test, one fails it,
 
-但他們都有公園和所需物品的校友，
-如此反复，它得到一分。
+but they both have Parks and Req alumni,
+so again, it gets a score of one.
 
->> 所以，如果我正在尋找電影
-在類似於內而外，
+>> So if I were looking for movies
+that were similar to Inside Out,
 
-我可以尋找具有電影
-得分最高的這個內容中
+I could look for the movies that have
+the highest score within this content
 
-過濾方案。
+filtering scheme.
 
-因此，在這種情況下，我
-會考慮嘍羅
+So in this case, I
+would consider Minions
 
-要更加密切和
-可能是什麼
+to be closer and more
+likely to be something
 
-我會花錢去看
-比ULTRON或螞蟻人的年齡。
+that I would spend money to see
+than Age of Ultron or Ant Man.
 
->> 這些基於內容的
-過濾系統依賴只是
+>> These content based
+filtering systems rely just
 
-上的性質
-電影，所以我
+on the properties of
+the movies, and so I
 
-只需通過了解建立這些
-一些有關產品
+can build these just by knowing
+something about the products
 
-我有。
+that I have.
 
-我可以使用任何類型的
-的功能，我想，
+I can use any kinds of
+features that I'd like,
 
-我可以建立更多
-複雜的功能，
+and I can build more
+complex features that
 
-涉及到更複雜的測試
-質量作為我走。
+involve more complex test
+of a quality as I go along.
 
-事實上，我甚至可以查看該表
-不是作為一個靜態的對象，
+In fact, I can even view this table
+not as being one static object,
 
-而作為維
-在較大的狀態空間。
+but rather as being dimensions
+within a larger state space.
 
-我可以開始談論
-不同的電影之間的距離。
+And I can start talking about the
+distances between different movies.
 
 
 
-這些都是事
-我們知道他們是如何
+These are all things
+that we know how they
 
-做使用多種數據結構
-我們已經看到在CS50。
+do using the kinds of data structures
+that we've already seen in CS50.
 
-所以，我能想像建設
-的數據結構的電影。
+So I could imagine building
+a data structure for a movie.
 
-還有，我已經一個結構
-構建所謂的電影，
+There's a struct that I've
+constructed called movie,
 
-並且它具有在其5布爾條目。
+and it has five Boolean entries in it.
 
-難道是動畫，它是一個奇蹟
-電影，它有一個超級大壞蛋，
+Is it animated, is it a Marvel
+movie, does it have a super villain,
 
-它通過Bechdel考驗，
-是否有公園和Rec校友呢？
+does it pass the Bechdel test, and
+are there Parks and Rec alumni in it?
 
-與每個這些是一個
-數據結構，我
+And each of these is a
+data structure that I
 
-可以佔用該特定的電影。
+can occupy for that particular movie.
 
->> 然後計算是否將兩個
-電影是相似與否，
+>> Then compute whether two
+movies are similar or not,
 
-他們的成績是，我可以
-寫出一組偽那
+what their score is, I could
+write out a set of pseudocode that
 
-生成相同的功能。
+generates that same function.
 
-也就是說，考慮到一些電影M1，我可以
-找到最類似電影到它
+That is, given some movie M1, I can
+find the most similar movie to it
 
-通過以下的偽代碼。
+by following the pseudocode.
 
-我認為這是最好的
-進球我發現系統，
+I consider which is the best
+scoring system that I've found,
 
-我已經找到了最好的對比。
+the best comparison that I've found.
 
-對於每一個其他的電影
-我會去通過，
+For every other movie
+I'm going to go through,
 
-我將設置一個匹配率等於0。
+I'll set a match score equal to 0.
 
-我會去通過
-電影，M1，電影
+And I'll go through that
+movie, an M1, the movie
 
-我開始，我會檢查
-每一個功能
+I started with, I'll check
+each and every feature
 
-他們有看
-如果有一個匹配。
+that they have to see
+if there's a match.
 
-如果有一場比賽，我會
-增加比賽得分。
+If there's a match, I'll
+increment the match score.
 
-而如果在結束比賽分數，
-我已經比目前最好的更好
+And if at the end the match score that
+I have is better than the current best
 
-進球，那我就
-請記住，最好的成績，
+score, then I'll
+remember that best score,
 
-這是最好的比賽，我有。
+and this is the best match that I have.
 
-最後，無論電影
-坐在最佳匹配，
+At the end, whatever movie
+is sitting in best match,
 
-這是最接近
-我已經能來。
+that's the closest
+I've been able to come.
 
-因此，這些內容的基礎
-過濾系統，
+So these content based
+filtering systems,
 
-它們都具有這樣的基本結構。
+they all have this basic structure.
 
-他們依靠項目
-問題並沒有什麼
+They rely upon the item
+in question and nothing
 
-任何用戶首選項。
+about any of the user preferences.
 
->> 我們在使用其他機制
-為了建立推薦系統
+>> The other mechanism that we use in
+order to build recommendation systems
 
-被稱為協同過濾。
+is called collaborative filtering.
 
-協同過濾依賴
-而不是對象本身的品質，
+Collaborative filtering relies upon
+not the qualities of the object itself,
 
-但如何人，其他
-網友認為，他們怎麼樣了
+but how people, other
+users that is, how they've
 
-針對這些相同的對象。
+responded to these same objects.
 
-因此，要繼續我的電影的例子，
-我可能會採取一幫朋友
+So to continue with my movie example,
+I might take a bunch of my friends
 
-並調查他們關於是否
-他們不喜歡特別的電影。
+and survey them about whether or
+not they liked particular movies.
 
-現在不同的地方會產生
-此數據以不同的方式。
+Now different places will generate
+this data in different ways.
 
-您可以直接調查你
-用戶，也可以只
+You can directly survey your
+users, or you could just
 
-看看他們的選擇，如果
-你，例如Netflix的。
+see what they choose if
+you're, for example Netflix.
 
-沒有他們看哪些電影？
+Which movies did they watch?
 
->> 我可能會質疑我的一些
-這裡的朋友，並找出
+>> I might question some of my
+friends here and find out
 
-傑森喜歡每一部電影
-他看見了，也就不足為怪了那裡。
+that Jason liked every movie
+he saw, not surprising there.
 
-安迪只喜歡嘍羅和阿姨人。
+Andy only liked Minions and Aunt Man.
 
-莎拉喜歡內向外
-復仇者，安迪的對立面。
+Sarah liked Inside Out and
+Avengers, the opposite of Andy.
 
-和SAM，以及，薩姆喜歡
-所有的超級英雄電影，
+And Sam, well, Sam liked
+all of the superhero movies,
 
-但沒有的動畫電影。
+but none of the animated movies.
 
->> 然後我可以查詢一些新的
-個人，其他一些用戶喜歡自己
+>> I could then query for some new
+individual, some other user like myself
 
-並要求，好吧，如果我喜歡
-這些電影之一，
+and ask, well, if I liked
+one of these movies,
 
-你可以做一個大概的預測
-而其他的電影我可能會喜歡。
+can you make a prediction about
+which other movies I might like.
 
-也就是說，如果我喜歡裡面
-出，這是其它電影
+That is, if I liked Inside
+Out, which other movies
 
-我可能也想看看
-根據什麼相似的人做？
+am I likely to also want to see
+based on what similar people did?
 
-也就是說，我會去通過
-我將篩選通過這個列表
+That is, I'll go through an
+I'll filter through this list
 
-並找到剛才
-個人誰也喜歡
+and find just the
+individuals who also liked
 
-由內而外，誰符合我的喜好。
+Inside Out, who matched my preferences.
 
-嗯，這意味著，安迪和
-山姆，他們不喜歡由內而外，
+Well, that means that Andy and
+Sam, they didn't like Inside Out,
 
-所以我不會去考慮他們。
+so I'm not going to consider them.
 
-我要擺脫自己的
-數據進行這種比較。
+I'm going to get rid of their
+data for this comparison.
 
->> 那麼我可以看看賈森
-和薩拉思想和理貨
+>> I can then look at what Jason
+and Sarah thought and tally
 
-了其中，他們看到的電影
-我沒有，他們是否喜歡他們
+up which of the movies that they saw
+that I didn't, whether they liked them
 
-或不。
+or not.
 
-我可以指望了，讓我們說票。
+I could just count up, let's say votes.
 
-所以嘍羅，例如可能有一個
-選它，因為傑森喜歡它。
+So Minions, for example might have one
+vote for it, because Jason liked it.
 
-這兩個賈森和莎拉喜歡復仇者，
-所以它有兩票​​。
+Both Jason and Sarah liked Avengers,
+so it would have two votes.
 
-而且，只有賈森喜歡螞蟻人，
-所以它會得到一票。
+And only Jason liked Ant Man,
+so it would get one vote.
 
-所以，如果我不得不然後推薦
-為自己而這些電影
+So if I had to then recommend
+for myself which of these movies
 
-我可能是最容易看，我會
-要選擇ULTRON的年齡：復仇者。
+I might be most likely to watch, I would
+have to choose Age of Ultron: Avengers.
 
->> 因此，對於任何這些
-系統，現在，我使用
+>> So for any of these
+systems, now I'm using
 
-已生成不是關於數據
-電影本身，而是偏好
+data that was generated not about the
+movie itself, but about the preferences
 
-來自其他用戶。
+from other users.
 
-這具有當然還有一些困難。
+This has some difficulties of course.
 
-如果你沒有任何其他的用戶？
+What if you don't have any other users?
 
-嗯，這就是所謂的啟動問題。
+Well, that's called startup problem.
 
-你必須有一些
-之前的數據量你
+You have to have some
+quantity of data before you're
 
-能夠開始製作
-這些建議。
+able to start making
+these recommendations.
 
-它的另一面是，一旦
-你開始收集數據，
+The flip side of it is once
+you start collecting data,
 
-如果你能收集更多
-和越來越多的數據，
+if you can collect more
+and more and more data,
 
-你會越來越好
-和更好的建議。
+you'll get better and better
+and better recommendations.
 
->> 現在，我們可以翻譯
-此為代碼。
+>> Now we could translate
+this into code as well.
 
-我們可以定義一個不同的
-樣的結構，
+We can define a different
+kind of structure,
 
-在這種情況下，我們會打電話給它的用戶。
+in this case we'll call it a user.
 
-而且它有有關功能
-這電影該用戶的喜愛。
+And it's got features about
+which movies this user liked.
 
-難道他們想由內而外，
-嘍羅，復仇者，和螞蟻人。
+Did they like Inside Out,
+Minions, Avengers, and Ant Man.
 
-然後，我們可以產生
-一些偽跟隨
+We could then generate
+some pseudocode to follow
 
-同樣的過程，我之前使用。
+the same procedure that I used before.
 
-即，給定一個特定的
-用戶X，讓我們推薦一個電影
+That is, given a particular
+user x, let's recommend a movie
 
-是X可能會喜歡。
+that x might like.
 
-我們可以通過與
-對於所有的電影，
+We can go through and
+for all of the movies,
 
-我們可以初始化一個分數
-對於那部電影是0。
+we can initialize a score
+for that movie to be 0.
 
-然後我們就可以找到所有
-其他用戶的誰
+And then we can find all
+of the other users who
 
-具有相同的首選項為x。
+have the same preferences as x.
 
-然後，每
-電影，他們喜歡，
+And then for every
+movie that they liked,
 
-我們將增加那部電影的評分。
+we'll increment the score of that movie.
 
-無論電影中的
-結束得分最高，
+Whichever movie in the
+end has the highest score,
 
-那是一個我要建議。
+that's the one I should recommend.
 
->> 這一切都不是真的不清楚。
+>> None of this is really obscure.
 
-這一切都不是具有挑戰性的。
+None of this is challenging.
 
-這些都是基本算法
-你可以實現的今天。
+These are all basic algorithms
+that you could implement today.
 
->> 現在有了真正的推薦系統，
-你遇到了一些問題。
+>> Now with real recommender systems,
+you run into some problems.
 
-如果有沒有誰
-精確匹配您的喜好？
+What if there's nobody who
+matches exactly your preferences?
 
-如果有用戶誰
-正是您的喜好，
+What if there are users who
+are exactly your preferences,
 
-但隨後大幅偏離
-從你喜歡什麼？
+but then deviate drastically
+from what you like?
 
-我喜歡經典的哥斯拉
-電影，但是我的妻子沒有。
+I like classic Godzilla
+movies, but my wife doesn't.
 
-我喜歡看他們，我
-Netflix的帳戶中包含他們。
+I like to watch them, my
+Netflix account contains them.
 
-她的沒有。
+Her's doesn't.
 
-當我們開始會發生什麼
-混合像這樣的數據？
+What happens when we start
+mixing data like this?
 
-這些都是挑戰
-你可以克服，
+These are all challenges
+that you can overcome,
 
-他們只需要稍微
-更複雜的算法。
+they just take slightly
+more complex algorithms.
 
->> 現在在現實世界中，這
-實際上操作，
+>> Now in the real world, which
+are actually operational,
 
-我們使用基於內容的過濾或
-我們使用的協同過濾？
+do we use content based filtering or
+do we use collaborative filtering?
 
-答案是，我們使用其中的兩者。
+And the answer is we use both of them.
 
-幾乎所有的主要用戶
-這種情況下，亞馬遜，Facebook和Netflix公司，
+Almost all of the major users in
+this case, Amazon, Facebook, Netflix,
 
-潘多拉，它們都使用相結合
-這些不同的推薦系統。
+Pandora, they all use a combination of
+these different recommendation systems.
 
-而當我們結合選擇從
-每次，我們稱之為混合系統。
+And when we combine the choices from
+each, we call them hybrid systems.
 
-它們以某種方式取決於
-物體本身的特性，
+They in some way depend upon the
+features of the object itself,
 
-而且在某些方面，他們依靠
-其他用戶的喜好。
+and in some ways they depend upon
+the preferences of other users.
 
-這些混合系統，
-他們是大企業，
+These hybrid systems,
+they're big business,
 
-而且他們什麼是當前的今天。
+and they're what's current today.
 
->> 所以，非常感謝您來到我身邊。
+>> So thanks very much for joining me.
 
-我希望你已經得到了一點點
-的理解有點什麼
+I hope you've gotten a little
+bit of an understanding of what
 
-使得這些系統的工作。
+makes these systems work.
 
-下一次你在線，請記住，
-不僅是你影響你的選擇，
+Next time you're online, remember that
+not only you influencing your choices,
 
-但可能其他人的為好。
+but potentially everyone else's as well.
 
-再次感謝。
+Thanks again.
 
