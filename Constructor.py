@@ -7,7 +7,9 @@ from optparse import OptionParser
 import os
 import codecs
 import sys
+import Configuration
 
+# ---------------------------預處理--------------------------------
 print r"""
  ________     ___    ___ ________  ________  ________  ________  ________  ________      
 |\   __  \   |\  \  /  /|\   ____\|\   __  \|\   __  \|\   __  \|\   __  \|\   ____\     
@@ -18,6 +20,7 @@ print r"""
     \|_______/__/ /\ __\    \|_______|\|_______|\|_______|\|_______|\|_______|\_________\
              |__|/ \|__|                                                     \|_________|
 """
+Configuration.init()
 
 
 # ---------------------------通用模塊------------------------------
@@ -36,7 +39,7 @@ def mk_dir(dir_path):
     is_exist = os.path.exists(dir_path)
     if not is_exist:
         os.makedirs(dir_path)
-        print("NOTICE: folder " + dir_path + " was created.")
+        print("NOTICE: Folder " + dir_path + " was created.")
         return True
     else:
         return False
@@ -48,9 +51,10 @@ def write_msg(text):
 
 
 # ---------------------------主程序---------------------------------
-def main(name, type, input, output):
-    file_list = get_file_names(input)
+def main(name, file_type, input_path, output_path):
+    file_list = get_file_names(input_path)
     dealing = None
+
     # 定位文件
     if name is None:
         dealing = file_list[-1]
@@ -58,28 +62,63 @@ def main(name, type, input, output):
         if name in file_list:
             dealing = name
         else:
-            write_msg("ERROR: 沒有找到相關的文件" + input + "\\" + str(name))
+            write_msg("ERROR: 沒有找到相關的文件" + input_path + "\\" + str(name))
             exit()
 
+    sentence = []
+    dealing_list = []
+    article = []
+
+
     # 文件處理
-    with codecs.open(input + "\\" + dealing, 'r') as subtitles:
+    with codecs.open(input_path + "\\" + dealing, 'r') as subtitles:
         lines = subtitles.readlines()
-        for line in lines:
+        # 語句處理
+        for index in range(0, len(lines)):
+            line = lines[index]
             # 如果當前語句的長度>=2 這説明不是空行
             if len(line) >= 2:
-                ending = line[-2]
-                if ending != ',' and '.' and ':' and '?':
-                    pass
 
-            # 移除空行
+                # 移除指定字符
+                for char in Configuration.remove:
+                    line.replace(char, '')
+
+                # 通過最後一個字符來檢測句子成分
+                ending = line[-2]
+
+                # 完成句子組成狀態
+                dealing_list = []
+
+                # 儅處理目錄dealing_list為空，且句子不是結尾時，視句子為開頭，并創建新句子容器sentence
+                if ending not in Configuration.ending and not dealing_list:
+                    # 新句子創建
+                    sentence = [line + " "]
+                    dealing_list.append(index)
+
+                # 儅處理目錄dealing_list不爲空，且句子不是結尾時，視句子為中間，并添加line進句子容器sentence
+                elif ending not in Configuration.ending and dealing_list:
+                    sentence.append(line + " ")
+                    dealing_list.append(index)
+
+                # 儅處理目錄dealing_list不爲空，且句子是結尾時，壓縮sentence到輸出結果，重置句子容器sentence
+                elif ending in Configuration.ending and dealing_list:
+                    sentence.append(" " + line + " ")
+                    dealing_list.append(index)
+                    complete_sentence = "".join(sentence)
+                    article.append(complete_sentence)
+                    sentence = []
+                    dealing_list = []
+
+            # 移除空行和單字符
             else:
                 del line
-            # 語句處理
+
+    print article
 
     # 輸出文章
-    mk_dir(output)
-    with codecs.open(output + "\\" + dealing, 'a+') as article:
-        pass
+    mk_dir(output_path)
+    with codecs.open(output_path + "\\" + dealing, 'a+') as f:
+        f.writelines(lines)
 
 
 # ---------------------------参数处理------------------------------
@@ -94,18 +133,18 @@ parser.add_option("-t", "--type",
                   action="store",  # optional because action defaults to "store"
                   dest="type",
                   default="txt",
-                  help=u"指定Constructor處理的字幕文件的類型(ass/str/txt), 默認為txt", )
+                  help=u"指定Constructor處理的字幕文件的類型(ass/str/txt，目前只支持txt), 默認為txt", )
 parser.add_option("-i", "--input",
                   action="store",  # optional because action defaults to "store"
                   dest="input",
-                  default="subtitles",
+                  default=Configuration.input_path,
                   help=u"指定輸入的字幕文件存放的路徑, 默認為subtitles/下", )
 parser.add_option("-o", "--output",
                   action="store",  # optional because action defaults to "store"
                   dest="output",
-                  default="article",
+                  default=Configuration.output_path,
                   help=u"指定輸出的整理過的文章存放的路徑, 默認為subtitles/下", )
 (options, args) = parser.parse_args()
 
 if __name__ == '__main__':
-    main(name=options.name, type=options.type, input=options.input, output=options.output)
+    main(name=options.name, file_type=options.type, input_path=options.input, output_path=options.output)

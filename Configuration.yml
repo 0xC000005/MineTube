@@ -1,0 +1,23 @@
+input:
+  path: 'subtitles/'
+
+  sentence:
+    ending:
+      re:
+        - '.'
+        - '?'
+        - '!'
+        - ';'
+
+    starting:
+      re:
+        - '>>'
+        - '<<'
+
+    remove:
+      re:
+        - '\n'
+        - '>>'
+
+output:
+  path:  'article/'
