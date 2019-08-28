@@ -66,9 +66,9 @@ def main(name, file_type, input_path, output_path):
             exit()
 
     sentence = []
-    dealing_list = []
     article = []
-
+    # 完成句子組成狀態
+    complete = 0
 
     # 文件處理
     with codecs.open(input_path + "\\" + dealing, 'r') as subtitles:
@@ -80,45 +80,44 @@ def main(name, file_type, input_path, output_path):
             if len(line) >= 2:
 
                 # 移除指定字符
+                line = line.replace('\n', '')
+                line = line.rstrip()
                 for char in Configuration.remove:
-                    line.replace(char, '')
+                    line = line.replace(char, '')
 
                 # 通過最後一個字符來檢測句子成分
-                ending = line[-2]
-
-                # 完成句子組成狀態
-                dealing_list = []
+                ending = line[-1]
 
                 # 儅處理目錄dealing_list為空，且句子不是結尾時，視句子為開頭，并創建新句子容器sentence
-                if ending not in Configuration.ending and not dealing_list:
+                if ending not in Configuration.ending and not complete:
+
                     # 新句子創建
                     sentence = [line + " "]
-                    dealing_list.append(index)
+                    complete += 1
 
                 # 儅處理目錄dealing_list不爲空，且句子不是結尾時，視句子為中間，并添加line進句子容器sentence
-                elif ending not in Configuration.ending and dealing_list:
+                elif ending not in Configuration.ending and complete:
+
                     sentence.append(line + " ")
-                    dealing_list.append(index)
+                    complete += 1
 
                 # 儅處理目錄dealing_list不爲空，且句子是結尾時，壓縮sentence到輸出結果，重置句子容器sentence
-                elif ending in Configuration.ending and dealing_list:
+                elif ending in Configuration.ending and complete:
                     sentence.append(" " + line + " ")
-                    dealing_list.append(index)
+
+                    complete = 0
                     complete_sentence = "".join(sentence)
                     article.append(complete_sentence)
                     sentence = []
-                    dealing_list = []
 
             # 移除空行和單字符
             else:
                 del line
 
-    print article
-
     # 輸出文章
     mk_dir(output_path)
     with codecs.open(output_path + "\\" + dealing, 'a+') as f:
-        f.writelines(lines)
+        f.writelines(article)
 
 
 # ---------------------------参数处理------------------------------
